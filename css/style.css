@@ -1,0 +1,1 @@
+.animeList{display:flex;flex-wrap:wrap;justify-content:space-around}.animeList .anime{background-color:#eca4a4;width:300px;margin:15px 5px;display:flex;align-items:center;flex-direction:column;padding-bottom:20px}.animeList .anime .animeInfo{display:inline-flex;width:15rem;justify-content:space-between;align-items:center}.animeList .anime img{width:300px;height:400px}
