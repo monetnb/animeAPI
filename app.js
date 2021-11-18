@@ -1,15 +1,24 @@
+// SITE API
+// https://jikan.docs.apiary.io/#introduction/information
+
+// https://www.youtube.com/watch?v=0edUd9m3tVU
+
 const animeContainer = document.querySelector('.animeList');
 const searchForm = document.querySelector('.searchAnime');
 const searchInput = document.querySelector('#search');
 
 const getAnime = async (ani) => {
-  const res = await fetch(
-    `https://api.jikan.moe/v3/search/anime?q=${ani}&page=1`
-  );
-  const data = await res.json();
-  const aniList = await data.results;
-  //   console.log(aniList);
-  displayAnime(aniList);
+  try {
+    const res = await fetch(
+      `https://api.jikan.moe/v3/search/anime?q=${ani}&page=1`
+    );
+    const data = await res.json();
+    const aniList = await data.results;
+    //   console.log(aniList);
+    displayAnime(aniList);
+  } catch (error) {
+    alert('Search NOT found. Please try again ✧･ﾟ✧･ﾟʕ •ᴥ•ʔ');
+  }
 };
 getAnime();
 
@@ -27,7 +36,7 @@ function displayAnime(anime) {
             alt="${title}"
           />
           <div class="animeInfo">
-            <h3>${title}</h3>
+            <h3>${shortenName(title)}</h3>
             <span class="${scoreColor(+score)}" id="score">${score.toFixed(
       1
     )}</span>
@@ -50,7 +59,6 @@ function displayAnime(anime) {
     animeContainer.appendChild(animeEl);
   });
 
-  //   console.log(anime);
   function scoreColor(score) {
     if (score >= 8) {
       return 'green';
@@ -59,6 +67,14 @@ function displayAnime(anime) {
     } else {
       return 'orange';
     }
+  }
+}
+
+function shortenName(title) {
+  if (title.length >= 25) {
+    return title.slice(0, 25) + '...';
+  } else {
+    return title;
   }
 }
 
@@ -71,6 +87,3 @@ searchForm.addEventListener('submit', (e) => {
   searchInput.value = '';
 });
 
-// mouse over overview
-// name length
-// loading and if cant find anime ERR
